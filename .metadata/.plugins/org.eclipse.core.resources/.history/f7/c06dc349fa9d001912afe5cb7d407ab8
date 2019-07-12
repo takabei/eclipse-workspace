@@ -1,0 +1,7 @@
+'''
+Created on 2019年7月4日
+
+@author: liuyi
+'''
+def action(max):
+    for i in range(max):

@@ -1,0 +1,16 @@
+INDEX VERSION 1.4+/home/liuyi/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+164956153.index
+1097497585.index
+2042622838.index
+1248937422.index
+3889915605.index
+1817724934.index
+316125674.index
+607067913.index
+3382790518.index
+3326191805.index
+213622537.index
+1814143515.index
+1111357097.index
+2430359107.index
+1522524798.index

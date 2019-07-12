@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;exit.java&apos; to &apos;GUI/src/views&apos;&#x0A;- Original project: &apos;ssms&apos;&#x0A;- Destination element: &apos;GUI/src/views&apos;&#x0A;- Original element: &apos;ssms.exit.java&apos;" description="Copy compilation unit" destination="=GUI/src&lt;views" element1="/src&lt;ssms{exit.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1561208278213" units="1" version="1.0"/>
+</session>

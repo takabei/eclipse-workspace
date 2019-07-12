@@ -1,0 +1,17 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+s = "welcome"
+for ch in s:
+    print(ch, end = " ")
+
+print()
+
+for i in range(0, len(s), 2):
+    print(s[i], end = " ")
+print()
+for m  in range(-(len(s)), 0, 1):
+    print("m = ", m)
+    print("s[m] = ", s[m], end = " ")

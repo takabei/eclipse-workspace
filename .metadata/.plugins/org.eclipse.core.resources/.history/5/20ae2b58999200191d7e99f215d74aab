@@ -1,0 +1,10 @@
+package domain;
+
+import java.util.List;
+
+public class Class {
+	private String classId;
+	private String name; 
+	private College college;
+	private List<Student> stuList;
+}

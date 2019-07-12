@@ -1,0 +1,673 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package views;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import domain.Class;
+
+import domain.Student;
+import domain.Teacher;
+import service.ClassService;
+import service.UserService;
+import utils.NodeTWO;
+
+/**
+ *
+ * @author liuyi
+ */
+public class AdminInformationQuery extends javax.swing.JFrame implements NodeTWO {
+	private String name;
+	private ClassService classService = new ClassService();
+	private UserService userService = new UserService();
+
+	public String toString() {
+		return name;
+	}
+
+	@Override
+	public JTabbedPane getJTabbedPane() {
+		return jTabbedPane2;
+
+	}
+
+	public AdminInformationQuery(String name) {
+		this.name = name;
+		initComponents();
+		initLensenter();
+
+	}
+
+	private void initLensenter() {
+		
+		jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// 支持单选
+				int row = jTable1.getSelectedRow();// 选中行
+//              //int col=table.getSelectedColumn();//选中列
+				if(row != -1) {
+					stuId.setText(jTable1.getValueAt(row, 0).toString());
+					sname.setText(jTable1.getValueAt(row, 1).toString());
+					ssex.setText(jTable1.getValueAt(row, 2).toString());
+					stel.setText(jTable1.getValueAt(row, 3).toString());
+					saddress.setText(jTable1.getValueAt(row, 3).toString());
+					
+				}
+			}		
+		});
+		jTable2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// 支持拖动多选
+//				int[] rows = jTable2.getSelectedRows();
+				// int[] cols = table.getSelectedColumns();//选中的列
+//				for (int i : rows) {
+//					System.out.println("#方法一:\t" + jTable2.getValueAt(i, 0) + "\t" + jTable2.getValueAt(i, 1));
+//				}
+
+				// 支持单选
+				int row = jTable2.getSelectedRow();// 选中行
+//              //int col=table.getSelectedColumn();//选中列
+				if(row != -1) {
+					teadId.setText(jTable2.getValueAt(row, 0).toString());
+					tname.setText(jTable2.getValueAt(row, 1).toString());
+					major.setText(jTable2.getValueAt(row, 3).toString());
+					tpass.setText(jTable2.getValueAt(row, 4).toString());
+					
+				}
+				
+			}
+		});
+		sconfirm.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String sstuId = stuId.getText().trim();
+				String ssname = sname.getText().trim();
+				String sspass = spass.getText().trim();
+				String sclazz = (String) jComboBox1.getSelectedItem();
+				String sssex = ssex.getText().trim();
+				String sad = saddress.getText().trim();
+				String sstel = stel.getText().trim();
+				Student test = new Student();
+				test.setAddress(sad);
+				test.setName(ssname);
+				test.setPassword(sspass);
+				test.setSex(sssex);
+				test.setStuId(sstuId);
+				Class clazz = new Class();
+				clazz.setClassId(sclazz);
+				test.setClazz(clazz);
+				int num = 0;
+				if(sstuId.equals("") || ssname.equals("") || sspass.equals("")
+						|| sclazz.equals("") || sssex.equals("") || sad.equals("")
+						|| sstel.equals("")) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"请填写全部字段");
+				}else if((num = userService.findStudent(sstuId)) == 0) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"该学生不存在");
+				} else if((num = userService.updateStudent(test)) == 0) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"操作失败！请稍候重试");
+				} else {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"操作成功");
+					stuId.setText("");
+					sname.setText(jTable1.getValueAt(row, 1).toString());
+					ssex.setText(jTable1.getValueAt(row, 2).toString());
+					stel.setText(jTable1.getValueAt(row, 3).toString());
+					saddress.setText(jTable1.getValueAt(row, 3).toString());
+
+				}
+			}
+		});
+		tconfirm.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String ttid = teadId.getText().trim();
+				String tmajor = major.getText().trim();
+				String ttpass = tpass.getText().trim();
+				String sex = (String) jComboBox2.getSelectedItem();
+				String ttname = tname.getText().trim();
+				Teacher tea = new Teacher();
+				Teacher test = null;
+				tea.setTable("teacher");
+				tea.setTeaId(ttid);
+				tea.setName(ttname);
+				tea.setMajor(tmajor);
+				tea.setPassword(ttpass);
+				tea.setSex(sex);
+				int num = 0;
+				if(ttid.equals("") || tmajor.equals("") || ttpass.equals("") || ttname.equals("")) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"请填写全部字段");
+				} else if((test = userService.findTeacher(tea)) == null) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"不存在该老师");
+				} else if((num = userService.updateTeacher(tea)) == 0) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"操作失败！请稍候重试");
+				} else {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"添加成功");
+					InitTable2();
+					teadId.setText("");
+					major.setText("");
+					tpass.setText("");
+					tname.setText("");
+				}
+			}
+		});
+		tdelete.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String ttid = teadId.getText().trim();
+				Teacher tea = new Teacher();
+				Teacher test = null;
+				tea.setTable("teacher");
+				tea.setTeaId(ttid);
+				int num = 0;
+				if(ttid.equals("") ) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"请填写教师ID");
+				} else if((test = userService.findTeacher(tea)) == null) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"不存在该老师");
+				} else if((num = userService.deleteTeacher(ttid)) == 0) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"操作失败！请稍候重试");
+				} else {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"操作成功！");
+					InitTable2();
+					teadId.setText("");
+					major.setText("");
+					tpass.setText("");
+					tname.setText("");
+				}
+			}
+		});
+		
+		tselect.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String str = tquery.getText().trim();
+				Teacher tea = new Teacher();
+				Teacher test = null;
+				tea.setTable("teacher");
+				tea.setTeaId(str);
+				int num  = 0;
+				if(str.equals("") ) {
+					InitTable2();
+				} else if((test = userService.findTeacher(tea)) == null) {
+					JOptionPane.showMessageDialog(AdminInformationQuery.this,"不存在该老师");
+				} else {
+					teadId.setText(test.getTeaId());
+					major.setText(test.getMajor());
+					tpass.setText(test.getPassword());
+					tname.setText(test.getName());
+				}
+			}
+		});
+	}
+	
+	private void InitTable1() {
+		List<Student> list = userService.getstuAll();
+		Object[][] params = new Object[list.size()][];
+		int i = 0;
+		for (Student stu : list) {
+			Object[] par = { stu.getStuId(), stu.getName(), stu.getSex(), stu.getTel(), stu.getAddress(),stu.getClazz().getName() };
+			params[i] = par;
+			if (i < list.size())
+				i++;
+		}
+		jTable1.setModel(
+				new javax.swing.table.DefaultTableModel(params, new String[] { "学号", "姓名", "性别", "电话", "地址","所属班级" }));
+		jScrollPane1.setViewportView(jTable1);
+	}
+	
+	
+
+	private void InitTable2() {
+		List<Teacher> list1 = userService.getteaAll();
+		Object[][] params1 = new Object[list1.size()][];
+		int i1 = 0;
+		for (Teacher tea : list1) {
+			
+			Object[] par = { tea.getTeaId(), tea.getName(), tea.getSex(), tea.getMajor(),tea.getPassword()};
+			params1[i1] = par;
+			if (i1 < list1.size())
+				i1++;
+		}
+		jTable2.setModel(new javax.swing.table.DefaultTableModel(params1, new String[] { "教师号", "教师姓名", "性别", "职称","密码" }));
+		jScrollPane2.setViewportView(jTable2);
+	}
+	
+	public AdminInformationQuery() {
+		initComponents();
+		initLensenter();
+	}
+
+	private void initComponents() {
+
+		jTabbedPane2 = new javax.swing.JTabbedPane();
+		jPanel1 = new javax.swing.JPanel();
+		jScrollPane1 = new javax.swing.JScrollPane();
+		jTable1 = new javax.swing.JTable();
+		jLabel1 = new javax.swing.JLabel();
+		squery = new javax.swing.JTextField();
+		sselect = new javax.swing.JButton();
+		jPanel3 = new javax.swing.JPanel();
+		jLabel4 = new javax.swing.JLabel();
+		jLabel5 = new javax.swing.JLabel();
+		jLabel6 = new javax.swing.JLabel();
+		stuId = new javax.swing.JTextField();
+		sname = new javax.swing.JTextField();
+		spass = new javax.swing.JTextField();
+		jLabel3 = new javax.swing.JLabel();
+		jLabel7 = new javax.swing.JLabel();
+		jLabel8 = new javax.swing.JLabel();
+		ssex = new javax.swing.JTextField();
+		stel = new javax.swing.JTextField();
+		saddress = new javax.swing.JTextField("8");
+		jLabel9 = new javax.swing.JLabel();
+		jComboBox1 = new javax.swing.JComboBox<>();
+		sconfirm = new javax.swing.JButton();
+		sdelete = new javax.swing.JButton();
+		jPanel4 = new javax.swing.JPanel();
+		jLabel2 = new javax.swing.JLabel();
+		jScrollPane2 = new javax.swing.JScrollPane();
+		jTable2 = new javax.swing.JTable();
+		tquery = new javax.swing.JTextField();
+		tselect = new javax.swing.JButton();
+		jLabel10 = new javax.swing.JLabel();
+		jLabel11 = new javax.swing.JLabel();
+		jLabel12 = new javax.swing.JLabel();
+		teadId = new javax.swing.JTextField();
+		major = new javax.swing.JTextField();
+		tpass = new javax.swing.JTextField();
+		jLabel13 = new javax.swing.JLabel();
+		jLabel14 = new javax.swing.JLabel();
+		jComboBox2 = new javax.swing.JComboBox<>();
+		tname = new javax.swing.JTextField();
+		tconfirm = new javax.swing.JButton();
+		tdelete = new javax.swing.JButton();
+
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		
+		InitTable1();
+
+		jLabel1.setText(" 请输入学号");
+
+		squery.setText("1 ");
+
+		sselect.setText(" 查询");
+
+		jLabel4.setText(" 学号：");
+
+		jLabel5.setText(" 姓名：");
+
+		jLabel6.setText(" 密码：");
+
+		stuId.setText("2 ");
+
+		sname.setText("3 ");		
+
+		spass.setText("4 ");
+
+		jLabel3.setText(" 性别：");
+
+		jLabel7.setText(" 电话：");
+
+		jLabel8.setText("地址：");
+
+		ssex.setText("5 ");
+
+		stel.setText("6 ");
+
+		jLabel9.setText(" 所属班级：");
+
+		jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<Object>(classService.getList().toArray()));
+		sconfirm.setText(" 确认修改");
+
+		sdelete.setText(" 删除信息");
+
+		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+		jPanel3.setLayout(jPanel3Layout);
+		jPanel3Layout.setHorizontalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel3Layout.createSequentialGroup().addGroup(jPanel3Layout
+						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanel3Layout.createSequentialGroup().addGap(64, 64, 64).addGroup(jPanel3Layout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+								.addGroup(jPanel3Layout.createSequentialGroup().addComponent(jLabel6).addGap(18, 18, 18)
+										.addComponent(spass))
+								.addGroup(jPanel3Layout.createSequentialGroup().addComponent(jLabel5).addGap(18, 18, 18)
+										.addComponent(sname))
+								.addGroup(jPanel3Layout.createSequentialGroup().addComponent(jLabel4).addGap(18, 18, 18)
+										.addComponent(stuId, javax.swing.GroupLayout.PREFERRED_SIZE, 151,
+												javax.swing.GroupLayout.PREFERRED_SIZE)))
+								.addGap(118, 118, 118)
+								.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jPanel3Layout.createSequentialGroup().addComponent(jLabel3)
+												.addGap(18, 18, 18).addComponent(ssex,
+														javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+														javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addGroup(jPanel3Layout.createSequentialGroup().addGap(8, 8, 8)
+												.addGroup(jPanel3Layout
+														.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+																false)
+														.addGroup(jPanel3Layout.createSequentialGroup()
+																.addComponent(jLabel8,
+																		javax.swing.GroupLayout.PREFERRED_SIZE, 48,
+																		javax.swing.GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(
+																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(saddress))
+														.addGroup(jPanel3Layout.createSequentialGroup()
+																.addComponent(jLabel7)
+																.addPreferredGap(
+																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addComponent(stel,
+																		javax.swing.GroupLayout.PREFERRED_SIZE, 148,
+																		javax.swing.GroupLayout.PREFERRED_SIZE)))))
+								.addGap(99, 99, 99)
+								.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 90,
+												javax.swing.GroupLayout.PREFERRED_SIZE)))
+						.addGroup(jPanel3Layout.createSequentialGroup().addGap(239, 239, 239)
+								.addComponent(sconfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 115,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGap(250, 250, 250).addComponent(sdelete, javax.swing.GroupLayout.PREFERRED_SIZE,
+										105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap(78, Short.MAX_VALUE)));
+		jPanel3Layout
+				.setVerticalGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanel3Layout.createSequentialGroup().addGap(50, 50, 50).addGroup(jPanel3Layout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel4)
+								.addComponent(stuId, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel3)
+								.addComponent(ssex, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel9))
+								.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jPanel3Layout.createSequentialGroup().addGap(52, 52, 52)
+												.addGroup(jPanel3Layout
+														.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(jLabel5)
+														.addComponent(sname,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(jLabel7).addComponent(stel,
+																javax.swing.GroupLayout.PREFERRED_SIZE,
+																javax.swing.GroupLayout.DEFAULT_SIZE,
+																javax.swing.GroupLayout.PREFERRED_SIZE)))
+										.addGroup(jPanel3Layout.createSequentialGroup().addGap(30, 30, 30).addComponent(
+												jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)))
+								.addGap(63, 63, 63)
+								.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabel6)
+										.addComponent(spass, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jLabel8).addComponent(saddress,
+												javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addGap(53, 53, 53)
+								.addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(sconfirm).addComponent(sdelete))
+								.addContainerGap(113, Short.MAX_VALUE)));
+
+		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		jPanel1.setLayout(jPanel1Layout);
+		jPanel1Layout.setHorizontalGroup(
+				jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jScrollPane1)
+						.addGroup(jPanel1Layout.createSequentialGroup().addGap(306, 306, 306).addComponent(jLabel1)
+								.addGap(58, 58, 58)
+								.addComponent(squery, javax.swing.GroupLayout.PREFERRED_SIZE, 127,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addGap(80, 80, 80)
+								.addComponent(sselect, javax.swing.GroupLayout.PREFERRED_SIZE, 71,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
+								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+		jPanel1Layout
+				.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanel1Layout.createSequentialGroup().addGroup(jPanel1Layout
+								.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel1)
+								.addComponent(squery, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(sselect)).addGap(41, 41, 41)
+								.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+		jTabbedPane2.addTab("学生列表", jPanel1);
+
+		jLabel2.setText(" 请输入教职工号：");
+		
+		InitTable2();
+
+		tquery.setText("");
+
+		tselect.setText(" 查询");
+
+		jLabel10.setText(" 教师号：");
+
+		jLabel11.setText(" 教师职称：");
+
+		jLabel12.setText(" 密码：");
+
+		teadId.setText("");
+
+		major.setText("");
+
+		tpass.setText("");
+
+		jLabel13.setText(" 教师性别：");
+
+		jLabel14.setText(" 教师姓名：");
+
+		jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "男", "女" }));
+
+		tname.setText("ssss");
+
+		tconfirm.setText(" 确认修改");
+
+		tdelete.setText(" 删除信息");
+
+		javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+		jPanel4.setLayout(jPanel4Layout);
+		jPanel4Layout.setHorizontalGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel4Layout.createSequentialGroup()
+						.addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanel4Layout.createSequentialGroup().addGap(285, 285, 285)
+										.addComponent(jLabel2).addGap(43, 43, 43)
+										.addComponent(tquery, javax.swing.GroupLayout.PREFERRED_SIZE, 132,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addGap(87, 87, 87).addComponent(tselect,
+												javax.swing.GroupLayout.PREFERRED_SIZE, 71,
+												javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addGroup(jPanel4Layout.createSequentialGroup().addGap(66, 66, 66)
+										.addGroup(jPanel4Layout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+												.addGroup(jPanel4Layout.createSequentialGroup()
+														.addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE,
+																84, javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(
+																javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+														.addComponent(teadId,
+																javax.swing.GroupLayout.PREFERRED_SIZE, 152,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addGroup(jPanel4Layout.createSequentialGroup()
+														.addGroup(jPanel4Layout.createParallelGroup(
+																javax.swing.GroupLayout.Alignment.LEADING, false)
+																.addComponent(jLabel11).addComponent(jLabel12,
+																		javax.swing.GroupLayout.DEFAULT_SIZE, 84,
+																		Short.MAX_VALUE))
+														.addPreferredGap(
+																javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+														.addGroup(jPanel4Layout
+																.createParallelGroup(
+																		javax.swing.GroupLayout.Alignment.LEADING)
+																.addComponent(tpass).addComponent(major)))
+												.addComponent(tconfirm, javax.swing.GroupLayout.Alignment.TRAILING))
+										.addGap(157, 157, 157)
+										.addGroup(jPanel4Layout
+												.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+												.addGroup(jPanel4Layout.createSequentialGroup().addComponent(jLabel13)
+														.addGap(18, 18, 18).addComponent(jComboBox2,
+																javax.swing.GroupLayout.PREFERRED_SIZE, 151,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addGroup(jPanel4Layout.createSequentialGroup().addComponent(jLabel14)
+														.addGap(18, 18, 18).addComponent(tname,
+																javax.swing.GroupLayout.PREFERRED_SIZE, 151,
+																javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addComponent(tdelete))))
+						.addContainerGap(251, Short.MAX_VALUE))
+				.addComponent(jScrollPane2));
+		jPanel4Layout.setVerticalGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel4Layout.createSequentialGroup().addContainerGap()
+						.addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jLabel2)
+								.addComponent(tquery, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(tselect))
+						.addGap(18, 18, 18)
+						.addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284,
+								javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jLabel10)
+								.addComponent(teadId, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel13).addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(61, 61, 61)
+						.addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jLabel11)
+								.addComponent(major, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel14)
+								.addComponent(tname, javax.swing.GroupLayout.PREFERRED_SIZE,
+										javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(57, 57, 57)
+						.addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(jLabel12).addComponent(tpass,
+										javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+										javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addGap(62, 62, 62)
+						.addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+								.addComponent(tconfirm).addComponent(tdelete))
+						.addContainerGap(113, Short.MAX_VALUE)));
+
+		jTabbedPane2.addTab("教师列表", jPanel4);
+
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		getContentPane().setLayout(layout);
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jTabbedPane2));
+		layout.setVerticalGroup(
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jTabbedPane2));
+
+		pack();
+	}// </editor-fold>
+
+	
+
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String args[]) {
+		/* Set the Nimbus look and feel */
+		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+		// (optional) ">
+		/*
+		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
+		 * look and feel. For details see
+		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+		 */
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(AdminInformationQuery.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(AdminInformationQuery.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(AdminInformationQuery.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(AdminInformationQuery.class.getName())
+					.log(java.util.logging.Level.SEVERE, null, ex);
+		}
+		// </editor-fold>
+
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new AdminInformationQuery().setVisible(true);
+			}
+		});
+	}
+
+	// Variables declaration - do not modify
+	private javax.swing.JButton sselect;
+	private javax.swing.JButton tselect;
+	private javax.swing.JButton sconfirm;
+	private javax.swing.JButton sdelete;
+	private javax.swing.JButton tconfirm;
+	private javax.swing.JButton tdelete;
+	private javax.swing.JComboBox<Object> jComboBox1;
+	private javax.swing.JComboBox<String> jComboBox2;
+	private javax.swing.JLabel jLabel1;
+	private javax.swing.JLabel jLabel10;
+	private javax.swing.JLabel jLabel11;
+	private javax.swing.JLabel jLabel12;
+	private javax.swing.JLabel jLabel13;
+	private javax.swing.JLabel jLabel14;
+	private javax.swing.JLabel jLabel2;
+	private javax.swing.JLabel jLabel3;
+	private javax.swing.JLabel jLabel4;
+	private javax.swing.JLabel jLabel5;
+	private javax.swing.JLabel jLabel6;
+	private javax.swing.JLabel jLabel7;
+	private javax.swing.JLabel jLabel8;
+	private javax.swing.JLabel jLabel9;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JPanel jPanel3;
+	private javax.swing.JPanel jPanel4;
+	private javax.swing.JScrollPane jScrollPane1;
+	private javax.swing.JScrollPane jScrollPane2;
+	private javax.swing.JTabbedPane jTabbedPane2;
+	private javax.swing.JTable jTable1;
+	private javax.swing.JTable jTable2;
+	private javax.swing.JTextField squery;
+	private javax.swing.JTextField major;
+	private javax.swing.JTextField tpass;
+	private javax.swing.JTextField tname;
+	private javax.swing.JTextField tquery;
+	private javax.swing.JTextField stuId;
+	private javax.swing.JTextField sname;
+	private javax.swing.JTextField spass;
+	private javax.swing.JTextField ssex;
+	private javax.swing.JTextField stel;
+	private javax.swing.JTextField saddress;
+	private javax.swing.JTextField teadId;
+	// End of variables declaration
+}

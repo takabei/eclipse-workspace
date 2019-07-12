@@ -1,0 +1,18 @@
+'''
+Created on 2019年7月4日
+
+@author: liuyi
+'''
+import threading
+def action(max):
+    for i in range(max):
+        print(threading.current_thread().getName() + " " + str(i))
+#         print(threading.currentThread().getName() + " " + str(i))
+        #currentThread = current_thread
+for i in range(100):
+    print(threading.current_thread().getName() + " " + str(i))
+    if i == 20:
+        t1 = threading.Thread(target=action, args = (100,))
+        t1.start()
+        t2 = threading.Thread(target=action, args = (10,))
+# action(5)

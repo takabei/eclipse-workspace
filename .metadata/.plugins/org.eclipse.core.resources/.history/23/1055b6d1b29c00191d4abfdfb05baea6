@@ -1,0 +1,14 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+import time
+startTime = time.time()
+for i in range(1000):
+    for j in range(1000):
+        for k in range(1000):
+            print("qqq")
+endTime = time.time()
+min = int(endTime - startTime) / 60 /60
+print("min = ", min)

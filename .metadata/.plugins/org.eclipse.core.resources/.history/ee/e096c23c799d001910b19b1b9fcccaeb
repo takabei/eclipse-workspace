@@ -1,0 +1,17 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from os.path import isfile
+import sys
+
+def main():
+    filename1 = input("请输入源文件名称:").strip()
+    filename2 = input("请输入重定向文件名称:").strip()
+    
+    if isfile(filename2):
+        print(filename2 + "已经存在")
+        sys.exit()
+
+main()

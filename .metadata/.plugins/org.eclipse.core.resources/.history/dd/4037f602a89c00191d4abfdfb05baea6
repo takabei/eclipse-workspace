@@ -1,0 +1,14 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+x = eval(input("输入x的值："))
+y = eval(input("输入y的值："))
+if x > 2:
+    if y > 2:
+        z = x + y
+        print("z is ", z)
+    else:
+        print("x is ", x)
+num

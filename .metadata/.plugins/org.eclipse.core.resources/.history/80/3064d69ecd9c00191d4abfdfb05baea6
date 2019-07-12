@@ -1,0 +1,62 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+class TV:
+    def __init__(self):
+        self.__channel = 1
+        self.__volumeLevel = 1
+        self.__on = False
+    
+    def turnOn(self):
+        self.__on = True
+    
+    def getChannel(self):
+        return self.__channel
+    
+    def setChannel(self, channel):
+        if self.on and 1 <= self.channel <= 120:
+            self.__channel = channel
+        
+    def getVolumeLevel(self):
+        return self.__volumeLevel
+    
+    def setVolumeLevel(self, volumeLevel):
+        if self.on and 1 <= self.__volumeLevel <= 7:
+            self.__volumeLevel = volumeLevel
+    
+    def channelUp(self):
+        if self.on and self.__channel < 120:
+            self.__channel += 1
+    
+    def channelDown(self):
+        if self.on and self.__channel > 1:
+            self.__channel -= 1
+    def volumeLevelUp(self):
+        if self.on and self.__volumeLevel < 7:
+            self.volumeLevel += 1
+    
+    def volumeLevelDown(self):
+        if self.on and self.__volumeLevel > 1:
+            self.volumeLevel -= 1
+        
+def main():
+    tv1 = TV()
+    tv2 = TV()
+    
+    tv1.turnOn()
+    tv1.setChannel(30)
+    tv1.setVolumeLevel(3)
+    tv2.turnOn()
+    tv2.channelUp()
+    tv2.channelUp()
+    tv2.volumeLevelUp()
+    
+    print("tv1 channel = ", tv1.getChannel(), "\
+        and volume = ", tv1.getVolumeLevel())
+    
+    print("tv2 channel = ", tv2.getChannel(), "\
+        and volume = ", tv2.getVolumeLevel())
+main()
+    

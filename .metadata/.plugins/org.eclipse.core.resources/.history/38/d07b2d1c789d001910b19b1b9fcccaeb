@@ -1,0 +1,14 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+infile = open("qwer.txt", "r")
+line = infile.readline()
+while line != "":
+    print(line, end = "")
+    line = infile.readline()
+s = 11
+for s not in range(0,10):
+    print(s)
+    

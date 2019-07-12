@@ -1,0 +1,22 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from twelve.Circle import Circle
+from twelve.RectangleFromGeometricObject import Rectanhle
+def main():
+    c = Circle()
+    r = Rectanhle(width = 1, height = 3)
+    displayObject(c)
+    displayObject(r)
+    displayObject("00")
+    print("Are the circle and rectangle the same size?", 
+          isSameArea(c,r))
+    
+def displayObject(g):
+    print(g.__str__())
+
+def isSameArea(g1, g2):
+    return g1.getArea() == g2.getArea()
+main()

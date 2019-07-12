@@ -1,0 +1,23 @@
+'''
+Created on 2019年7月4日
+
+@author: liuyi
+'''
+import threading
+import time
+class MusicAndGame1(threading.Thread):
+    def __init__(self):
+        super().__init__()
+    def run(self, name):
+        print("%s begin listen music %s" % (name,time.ctime()))
+        time.sleep(3)
+        print("%s stop listen music %s" % (name,  time.ctime()))
+        
+class MusicAndGame2(threading.Thread):
+    def __init__(self):
+        super().__init__()
+        
+    def run(self):
+        print("%s begin listen game %s" % (name,time.ctime()))
+        time.sleep(3)
+        print("%s stop listen game %s" % (name,  time.ctime()))    

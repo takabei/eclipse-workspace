@@ -1,0 +1,12 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from eleven.initList import matrix
+def main():
+    m = matrix
+    for i in m:
+        for n in i:
+    print(sum(m))
+main()

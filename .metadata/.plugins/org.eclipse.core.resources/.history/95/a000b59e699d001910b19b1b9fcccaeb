@@ -1,0 +1,24 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from twelve.GeometricObject import GeometricObject
+class Rectanhle(GeometricObject):
+    def __init__(self, width = 1, height = 1):
+        super.__init__()
+        #python老版本语法 GeometricObject.__init__()
+        self.__width = width
+        self.__height = height
+    
+    def getWidth(self):
+        return self.__width
+
+    def getHeight(self):
+        return self.__height
+    
+    def setHeight(self, height):
+        self.__height = height
+    
+    def setWidth(self, width):
+        self.width = width

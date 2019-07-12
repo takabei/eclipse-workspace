@@ -1,0 +1,9 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+count = 0
+while count < 100:
+    print("count = " + count)
+    count++;

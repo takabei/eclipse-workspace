@@ -1,0 +1,7 @@
+package domain;
+
+public class Lesson {
+	private String lessId;
+	private String name;
+	private Teacher teaId;
+}

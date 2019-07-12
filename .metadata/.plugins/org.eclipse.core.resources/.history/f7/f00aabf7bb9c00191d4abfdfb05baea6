@@ -1,0 +1,10 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+def printArea(width = 1, height = 2):
+    area = width * height
+    print("width:", width, "\theight:", height, "\tarea", area)
+printArea()
+printArea(1,4)

@@ -1,0 +1,11 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+def printList(list):
+    for element in list:
+             print(element, end = " ")
+    print()
+list11 = [x for x in range(10)]
+printList(list11)

@@ -1,0 +1,23 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+def main():
+    try:
+        number1, number2 = eval(
+            input("enter two numbers, separated by a comma:"))
+        result = number1 / number2
+        print("Result is ", result)
+    except ZeroDivisionError as ex:#除零异常
+        print("Division  zero!", ex)
+    except SyntaxError as ex:#抛出对应的异常时执行该语句
+        print("A comma may be missing in the input", ex)
+    except:#抛出了前面都不匹配的异常，于是就被我抓住了
+        print("something wrong in the input")
+    else:#若try没抛出异常则执行该语句
+        print("No exceptions")
+    finally:#无论如何都会执行的收尾的代码
+        print("The finally clause is executed")
+    
+main()

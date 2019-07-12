@@ -1,0 +1,17 @@
+package domain;
+
+import java.util.List;
+
+public class Teacher extends User {
+	private String teaId;
+	private List<Lesson> lessId;
+	public Teacher(String table, String username, String password) {
+		super(table,username,password);
+	}
+
+	public Teacher() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+}

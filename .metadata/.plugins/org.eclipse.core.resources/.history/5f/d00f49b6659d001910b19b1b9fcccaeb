@@ -1,0 +1,22 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from random import randint
+def getMatrix():
+    matrix = []
+    
+    numberOfRows = eval(input("Enter the number of rows: "))
+    numberOfColumns = eval(input("Enter the number of columns: "))
+    for row in range(numberOfRows):
+        list1 = []
+        for column in range(numberOfColumns):
+            list1.append(randint(0,47))
+        matrix.append(list1)
+    return matrix
+
+def accumulate(m):
+    total = 0
+    for row in m:
+        

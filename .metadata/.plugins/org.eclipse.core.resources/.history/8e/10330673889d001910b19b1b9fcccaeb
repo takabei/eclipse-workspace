@@ -1,0 +1,7 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+t = lambda:1
+print('t:{0}'.format(t))

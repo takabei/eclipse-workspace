@@ -1,0 +1,11 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+def getMatrix():
+    matrix = []
+    
+    numberOfRows = eval(input("Enter the number of rows: "))
+    numberOfColumns = eval(input("Enter the number of columns: "))
+    for row in range(numberOfRows):

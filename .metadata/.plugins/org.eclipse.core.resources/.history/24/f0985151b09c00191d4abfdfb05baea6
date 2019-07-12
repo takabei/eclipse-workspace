@@ -1,0 +1,11 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+sum = 0
+i = 10.566
+while i < 10.567:
+    sum += i
+    i += 1
+print("sum = ",sum)

@@ -1,0 +1,16 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+#SyntaxError: non-default argument follows default argument
+def printArea(qwer,width = 1, height = 2):
+    area = width * height
+    print("width:", width, "\theight:", height, "\tarea", area)
+# printArea()
+printArea(1,4)
+printArea(width = 1, height = 4)
+printArea(height = 4, width = 1)
+printArea(width = 1)
+#函数可以混用默认值参数和非默认值参数，在这种情况下，非默认值参数必须定义在默认值参数之前
+printArea(1,height = 4)

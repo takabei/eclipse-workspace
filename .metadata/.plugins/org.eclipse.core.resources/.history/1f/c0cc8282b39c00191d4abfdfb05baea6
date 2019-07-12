@@ -1,0 +1,12 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+sum = 0
+
+i = 0.01
+while i <= 10.0:
+    sum += i
+    i += i 
+print("sum = ", sum, "\ti = ", i)

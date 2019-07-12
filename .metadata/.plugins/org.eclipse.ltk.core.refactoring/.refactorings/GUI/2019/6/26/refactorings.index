@@ -1,0 +1,26 @@
+1561296077235	Extract local variable 'comp'
+1561296193079	Extract local variable 'comp2'
+1561297668830	Rename type 'Exit'
+1561297724060	Delete element
+1561298539934	Rename type 'passwordChange'
+1561298561203	Extract local variable 'userObject'
+1561302075848	Extract local variable 'parent'
+1561302126921	Extract local variable 'parent3'
+1561302190422	Extract local variable 'parent4'
+1561338534675	Rename type 'adminBasicInformation'
+1561338706654	Delete element
+1561338715629	Rename compilation unit 'Admin.java'
+1561339858182	Delete element
+1561349335716	Delete element
+1561357951547	Delete element
+1561358322348	Delete element
+1561359808241	Extract local variable 'college'
+1561361829633	Copy compilation unit
+1561361927128	Copy compilation unit
+1561362100617	Copy compilation unit
+1561363604433	Copy compilation unit
+1561363778087	Extract local variable 'ttd2'
+1561365019392	Delete element
+1561387397603	Delete element
+1561428122320	Extract local variable 'bean'
+1561527695714	Copy file

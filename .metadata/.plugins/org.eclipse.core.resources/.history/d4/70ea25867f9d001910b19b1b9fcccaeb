@@ -1,0 +1,10 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from _pickle import dump
+def main():
+    outfile = open("pickle.dat", "wb")
+    dump(45, outfile)
+main()

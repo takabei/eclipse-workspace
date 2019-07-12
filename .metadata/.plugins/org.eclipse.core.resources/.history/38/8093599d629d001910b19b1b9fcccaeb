@@ -1,0 +1,14 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+
+list1 = []
+for i in range(3):
+    list11 = []
+    for n in range(4):
+        list11.append(n)
+    list1.append(list1)
+print(list1)
+# print(matrix)

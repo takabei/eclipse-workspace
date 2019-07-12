@@ -1,0 +1,9 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+class Course:
+    def __init__(selfs, courseName):
+        self.__courseName = courseName
+        

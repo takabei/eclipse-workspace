@@ -1,0 +1,16 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+def main():
+    a = A()
+    a.print()
+class A:
+    def __init__(self, str = "Welcome"):
+        self.str = str
+    
+    def print(self):
+        print(self.str)
+        
+        

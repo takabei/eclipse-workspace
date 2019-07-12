@@ -1,0 +1,11 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+def gcd(n,m):
+    gcd = 1
+    k = 2
+    
+    while k <= n and k <= m:
+        

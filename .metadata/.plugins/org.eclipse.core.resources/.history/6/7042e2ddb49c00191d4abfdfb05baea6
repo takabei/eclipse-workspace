@@ -1,0 +1,15 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+def sum(n,m):
+    result = 0
+    
+    for i in range(n,m+1):
+        result += i
+    return result
+def main():
+    n,m = eval(input("请输入n,m的值以逗号隔开"))
+    print("Sum from ",n," to ", m, " is", sum(n,m))
+main

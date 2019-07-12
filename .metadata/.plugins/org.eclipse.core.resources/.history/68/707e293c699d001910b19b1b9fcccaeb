@@ -1,0 +1,8 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from twelve.GeometricObject import GeometricObject
+class Rectanhle(GeometricObject):
+    def __init__(self, width = 1, height = 1):

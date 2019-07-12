@@ -1,0 +1,15 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+number = eval(input("Enter an integer:"))
+
+if number % 5 == 0:
+    print("去你吗的")
+else:
+    print("呵呵 去你美的")
+
+y = eval(input("输入y的值："))
+if y > 0:
+    x = 1

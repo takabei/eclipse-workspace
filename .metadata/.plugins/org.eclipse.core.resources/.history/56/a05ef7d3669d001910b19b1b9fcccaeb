@@ -1,0 +1,12 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+class GeometricObject:
+    def __init__(self, color = "green", filled = True):
+        self.__color = color
+        self.filled = filled
+    
+    def getColor(self):
+        return 

@@ -1,0 +1,15 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+def main():
+    try:
+        number1, number2 = eval(
+            input("enter two numbers, separated by a comma:"))
+        result = number1 / number2
+        print("Result is ", result)
+    except ZeroDivisionError:#除零异常
+        print("Division  zero!")
+    except SyntaxError:
+main()

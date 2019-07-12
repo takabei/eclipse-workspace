@@ -1,0 +1,10 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+num = eval(input("请输入num的值："))
+if num >= 0 and num <= 100 or num < 0:
+    print("true")
+y = 1 if num > 0 else 1
+print("y = ", y)

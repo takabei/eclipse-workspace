@@ -1,0 +1,25 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+def main():
+    a = A()
+    a.print()
+    
+    b = B(False)
+    print(b.__isOn())
+class A:
+    def __init__(self, str = "Welcome"):
+        self.__str = str
+    
+    def print(self):
+        print(self.__str)
+class B:
+    def __init__(self, on):
+        self.__on = not on
+    
+    def __isOn(self):
+        return self.__on
+main()
+        

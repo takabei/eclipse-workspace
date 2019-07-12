@@ -1,0 +1,20 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from twelve.GeometricObject import GeometricObject
+import math
+class Circle(GeometricObject):
+    def __init__(self, radius):
+        super().__init__()
+        self.__radius = radius
+    
+    def getRadius(self):
+        return self.__radius
+    
+    def setRadius(self, radius):
+        self.__radius = radius
+    
+    def getArea(self):
+        return self.__radius ** 2 * math.pi

@@ -1,0 +1,17 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+import random
+import time
+
+correctCount = 0
+continueLoop = 'Y'
+startTime = time.time()
+
+while continueLoop == 'Y':
+    number1 = random.randint(0,9)
+    number2 = random.randint(0,9)
+    
+    number1,number2 = number2,number1 if number1 < number2 else

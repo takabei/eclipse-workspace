@@ -1,0 +1,5 @@
+#Tomcat publish data
+#Wed Jun 12 22:18:06 CST 2019
+org.eclipse.jst.j2ee.server\:JSPWeb4=/usr/local/apache-tomcat-9.0.20/webapps/JSPWeb4
+org.eclipse.jst.j2ee.server\:JSPWeb3=/usr/local/apache-tomcat-9.0.20/webapps/JSPWeb3
+org.eclipse.jst.j2ee.server\:JSPWeb2=/usr/local/apache-tomcat-9.0.20/webapps/JSPWeb2

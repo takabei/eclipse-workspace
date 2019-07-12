@@ -1,0 +1,16 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+import math
+
+class Circle:
+    def __init__(self,radius = 1):
+        self.radius = radius
+    
+    def getPerimeter(self):
+        return 2 * self.radius * math.pi
+    
+    def getArea(self):
+        return self.radius ** 2 * math.pi

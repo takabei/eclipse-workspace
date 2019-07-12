@@ -1,0 +1,12 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+list1 = []
+for i in range(3):
+    list11 = []
+    list1.append(list1)
+    for n in range(4):
+        list11.append(n)
+print(list1)

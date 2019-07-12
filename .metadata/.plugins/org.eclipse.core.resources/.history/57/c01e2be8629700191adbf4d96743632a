@@ -1,0 +1,347 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package views;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import domain.Grade;
+import domain.StuANDLess;
+import domain.Student;
+import service.GradeService;
+import service.UserService;
+import utils.Node;
+import utils.NodeTWO;
+/**
+ *
+ * @author liuyi
+ */
+public class AdminGradeQuery extends javax.swing.JFrame implements Node{
+	private String name;
+	private UserService userService = new UserService();
+	private GradeService gradeService = new GradeService();
+	public String toString() {
+		return name;
+	}
+	@Override
+	public JPanel getJpanel() {
+		return jPanel2;
+	}
+	public AdminGradeQuery(String name) {
+		this.name = name;
+        initComponents();
+        initLensenter();
+    }
+	
+    private void initLensenter() {
+		jTable3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// 支持单选
+				int row = jTable3.getSelectedRow();// 选中行
+//              //int col=table.getSelectedColumn();//选中列
+				if(row != -1) {
+					lessId.setText(jTable3.getValueAt(row, 0).toString());
+					lessName.setText(jTable3.getValueAt(row, 1).toString());
+					stuId.setText(jTable3.getValueAt(row, 2).toString());
+					sname.setText(jTable3.getValueAt(row, 3).toString());
+					grade.setText(jTable3.getValueAt(row, 4).toString());					
+				}
+			}		
+		});
+		
+		confirm.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String lessid = lessId.getText();
+				String stuid = stuId.getText();
+				String lgrade = grade.getText().trim();
+				int num = 0;
+				if(lgrade.equals("") || lessid.equals("") || stuid.equals("")) {
+					JOptionPane.showMessageDialog(AdminGradeQuery.this,"本页面只能修改成绩");
+				} else if((num = gradeService.updateGrade(lessid,stuid,lgrade)) == 0) {
+					JOptionPane.showMessageDialog(AdminGradeQuery.this,"操作失败！请稍候重试");
+				} else {
+					JOptionPane.showMessageDialog(AdminGradeQuery.this,"操作成功！");
+					InitTable1();
+				}
+			}
+		});
+		delete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String lessid = lessId.getText();
+				String stuid = stuId.getText();
+				int num = 0;
+				if(lessid.equals("") || stuid.equals("")) {
+					JOptionPane.showMessageDialog(AdminGradeQuery.this,"请补齐字段");
+				} else if((num = gradeService.delete(lessid,stuid)) == 0) {
+					JOptionPane.showMessageDialog(AdminGradeQuery.this,"操作失败！请稍候重试");
+				} else {
+					JOptionPane.showMessageDialog(AdminGradeQuery.this,"操作成功！");
+					InitTable1();
+					lessId.setText("");
+					lessName.setText("");
+					stuId.setText("");
+					sname.setText("");
+					grade.setText("");
+				}
+			}
+		});
+		select.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String stuid = query.getText().trim();
+				int num = 0;
+				if(stuid.equals("")) {
+					JOptionPane.showMessageDialog(AdminGradeQuery.this,"查询条件不能为空");
+				} else if((num = userService.findStudent(stuid)) == 0) {
+					JOptionPane.showMessageDialog(AdminGradeQuery.this,"不存在该学生");
+				} else {
+					InitTable1(stuid);
+				}
+			}
+		});
+	}
+    private void InitTable1(String...strs) {
+		List<Grade> list = gradeService.getAll();
+		Object[][] params = new Object[list.size()][];
+		int i = 0;
+		for (Grade grade : list) {
+			Object[] par = {
+					grade.getsLess().getLess().getLessId(),grade.getsLess().getLess().getName(),
+					grade.getsLess().getStu().getStuId(),grade.getsLess().getStu().getName(),
+					grade.getCore(),grade.getsLess().getStu().getClazz().getName()
+			};
+			params[i] = par;
+			if (i < list.size())
+				i++;
+		}
+		jTable3.setModel(
+				new javax.swing.table.DefaultTableModel(params, new String[] { "课程号", "课程名", "学号", "姓名", "成绩","所属班级" }));
+		jScrollPane3.setViewportView(jTable3);
+	}
+    
+	public AdminGradeQuery() {
+        initComponents();
+        initLensenter();
+    }
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jPanel2 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        query = new javax.swing.JTextField();
+        select = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        lessId = new javax.swing.JTextField();
+        lessName = new javax.swing.JTextField();
+        grade = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        stuId = new javax.swing.JTextField();
+        sname = new javax.swing.JTextField();
+        confirm = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel15.setText(" 请输入学号：");
+
+        query.setText("1 ");
+
+        select.setText(" 查询");
+
+        InitTable1();
+        
+        jLabel16.setText("课程号：");
+
+        jLabel17.setText(" 课程名：");
+
+        jLabel18.setText(" 成绩：");
+
+        lessId.setText("2 ");
+
+        lessName.setText("3 ");
+
+        grade.setText("4 ");
+       
+
+        jLabel19.setText(" 学号：");
+
+        jLabel1.setText(" 姓名：");
+
+        stuId.setText("5 ");
+        
+
+        sname.setText("6 ");
+
+        confirm.setText(" 确认修改");
+
+        delete.setText("删除成绩");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(jLabel15)
+                        .addGap(93, 93, 93)
+                        .addComponent(query, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(89, 89, 89)
+                        .addComponent(select, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(grade))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel16)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lessId, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel17)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lessName, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(138, 138, 138))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(116, 116, 116)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel1))
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(stuId, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(sname)
+                            .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(216, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(query, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(select))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(lessId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(stuId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(lessName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(sname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(grade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirm)
+                    .addComponent(delete))
+                .addGap(73, 73, 73))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+  
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AdminGradeQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AdminGradeQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AdminGradeQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AdminGradeQuery.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AdminGradeQuery().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton confirm;
+    private javax.swing.JButton delete;
+    private javax.swing.JButton select;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTextField stuId;
+    private javax.swing.JTextField query;
+    private javax.swing.JTextField lessId;
+    private javax.swing.JTextField lessName;
+    private javax.swing.JTextField grade;
+    private javax.swing.JTextField sname;
+    // End of variables declaration                   
+	
+}

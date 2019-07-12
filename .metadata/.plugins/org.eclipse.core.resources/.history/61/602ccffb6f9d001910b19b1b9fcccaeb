@@ -1,0 +1,10 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from twelve.Circle import Circle
+from twelve.RectangleFromGeometricObject import Rectanhle
+def main():
+    c = Circle()
+    r = Rectanhle(1,3)

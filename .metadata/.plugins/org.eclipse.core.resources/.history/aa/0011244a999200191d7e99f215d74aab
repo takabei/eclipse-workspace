@@ -1,0 +1,7 @@
+package domain;
+
+public class Grade {
+	private String gradeId;
+	private String core;
+	private StuANDLess sLess;
+}

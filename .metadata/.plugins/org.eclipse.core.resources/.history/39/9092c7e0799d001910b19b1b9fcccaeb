@@ -1,0 +1,28 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from os.path import isfile
+import sys
+
+def main():
+    filename1 = input("请输入源文件名称:").strip()
+    filename2 = input("请输入重定向文件名称:").strip()
+    
+    if isfile(filename2):
+        print(filename2 + "已经存在")
+        sys.exit()
+    
+    infile = open(filename1, "r")
+    outfile = open(filename2, "w")
+    
+    countLines = countChars = 0
+    for line in infile:
+        countLines += 1
+        countChars += len(line)
+        outfile.write(line)
+    print(countLines," 行 以及", countChars,"个字符")
+    
+    infile.close()
+main()

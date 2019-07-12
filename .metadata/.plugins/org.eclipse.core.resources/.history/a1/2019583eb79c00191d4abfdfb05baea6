@@ -1,0 +1,25 @@
+'''
+Created on 2019年7月2日
+
+@author: liuyi
+'''
+def max(n,m):
+    return n if n > m else m
+def sum(n,m):
+    result = 0
+    
+    for i in range(n,m+1):
+        result += i
+        #None 是无返回值函数的默认返回值
+        #return
+        #return None
+        #都可用于终止函数的运行
+    return result
+def main():
+    continueLoop = 'y'
+    while continueLoop == 'y':
+        n,m = eval(input("请输入n,m的值以逗号隔开:"))
+        print("Sum from ",n," to ", m, " is", sum(n,m))
+        continueLoop = input("继续执行按 y，退出按 n")
+#     print("max = ", max(18.9,18.8))
+main()#Call the main function

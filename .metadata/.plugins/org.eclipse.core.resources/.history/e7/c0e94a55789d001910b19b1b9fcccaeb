@@ -1,0 +1,17 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+infile = open("qwer.txt", "r")
+line = infile.readline()
+while line != "":
+    print(line, end = "")
+    line = infile.readline()
+    print()
+infile.close()
+
+infile = open("qwer.txt", "r")
+for line in infile.readlines():
+    print(line, end = "")
+infile.close()

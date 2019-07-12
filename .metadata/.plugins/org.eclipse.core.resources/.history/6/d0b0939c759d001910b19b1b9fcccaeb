@@ -1,0 +1,16 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+from os.path import isfile
+def main():
+    if isfile("liuyi.txt")
+    outfile = open("liuyi.txt", "w")
+    outfile.write("liuyi\n")
+    outfile.write("test\t\n")
+    outfile.write("qwer\n")
+    outfile.write("liuyi\n")
+    outfile.write("刘义\n")
+    outfile.close()
+main()

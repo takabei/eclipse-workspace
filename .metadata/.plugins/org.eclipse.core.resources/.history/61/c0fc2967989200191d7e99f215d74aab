@@ -1,0 +1,14 @@
+package domain;
+
+public class teacher extends User {
+	private String teaId;
+	public teacher(String table, String username, String password) {
+		super(table,username,password);
+	}
+
+	public teacher() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="System.out.println("/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="qwer."/>
+			<item value="System.out.println("/>
+			<item value="jButton6"/>
+			<item value="jButton5"/>
+			<item value="jTextField12"/>
+			<item value="jTextField11"/>
+			<item value="jTextField10"/>
+			<item value="jTextField9"/>
+			<item value="jTextField8"/>
+			<item value="jTextField7"/>
+			<item value="jTextField6"/>
+			<item value="jButton1"/>
+			<item value="jButton2"/>
+			<item value="jTextField3"/>
+			<item value="jTextField2"/>
+		</list>
+		<list key="replacehistory">
+			<item value="tdelete"/>
+			<item value="tconfirm"/>
+			<item value="tname"/>
+			<item value="tpass"/>
+			<item value="major"/>
+			<item value="teadId"/>
+			<item value="teaId"/>
+			<item value="submit"/>
+			<item value="rest"/>
+			<item value="lessname"/>
+			<item value="lessId"/>
+			<item value="jComboBox1"/>
+			<item value="cname"/>
+			<item value="collegeId"/>
+			<item value="clazzId"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="0"/>
+		<item key="DIALOG_Y_ORIGIN" value="68"/>
+		<item key="DIALOG_WIDTH" value="344"/>
+		<item key="DIALOG_HEIGHT" value="426"/>
+		<item key="DIALOG_FONT_NAME" value="1|Ubuntu|11.0|0|GTK|1|"/>
+	</section>
+</section>

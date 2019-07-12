@@ -1,0 +1,13 @@
+'''
+Created on 2019年7月4日
+
+@author: liuyi
+'''
+import threading
+class FKThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.i = 0
+    def run(self):
+        while self.i < 100:
+            

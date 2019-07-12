@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script type="text/javascript">
+		
+	</script>
+</style>
+</head>
+<body>
+
+	<div class="login_frame"></div>
+	<div class="LoginWindow">
+		<div>
+			<form method="post" action="#" onsubmit="return user_input()"
+				class="login">
+				<p>
+					<label for="login">帐号:</label> <input type="text" name="id" id="id"
+						value="">
+				</p>
+
+				<p>
+					<label for="password">密码:</label> <input type="password"
+						name="password" id="password" value="">
+				</p>
+
+				<p class="login-submit">
+					<button type="submit" class="login-button">登录</button>
+				</p>
+
+			</form>
+			<p class="registration">
+				<a href="#">注册</a>
+			</p>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

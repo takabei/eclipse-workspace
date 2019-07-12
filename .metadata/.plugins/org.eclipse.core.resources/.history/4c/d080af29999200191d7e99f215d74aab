@@ -1,0 +1,7 @@
+package domain;
+
+public class StuANDLess {
+	private String slId;
+	private List<Student> stuList;
+	private List<Lesson> lessList;
+}

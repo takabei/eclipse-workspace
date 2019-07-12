@@ -1,0 +1,9 @@
+'''
+Created on 2019年7月3日
+
+@author: liuyi
+'''
+def main():
+    try:
+        number1, number2 = eval(input("enter two numbers, separated by a comma:"))
+main()

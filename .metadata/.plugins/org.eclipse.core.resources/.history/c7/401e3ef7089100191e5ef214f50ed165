@@ -1,0 +1,265 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package views;
+
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.WindowConstants;
+
+import service.UserService;
+
+/**
+ *
+ * @author liuyi
+ */
+public class LoginClass extends JFrame {
+    private ButtonGroup buttonGroup1;
+    private ButtonGroup buttonGroup2;
+    private ButtonGroup buttonGroup3;
+    private JLabel error;
+    private JLabel errorName;
+    private JLabel errorPass;
+    private JRadioButton jRadioButton1;
+    private JRadioButton jRadioButton2;
+    private JRadioButton jRadioButton3;
+    private JButton login;
+    private JTextField nameField;
+    private JLabel nameLabel;
+    private JTextField passField;
+    private JLabel passLabel;
+    private JButton regist;
+    private UserService userService;
+  
+    public LoginClass() {
+        initComponents();
+         Container c = getContentPane(); //获取JFrame面板
+        
+    }
+
+   
+                     
+    private void initComponents() {
+
+        buttonGroup1 = new ButtonGroup();
+        buttonGroup2 = new ButtonGroup();
+        buttonGroup3 = new ButtonGroup();
+        nameLabel = new JLabel();
+        passLabel = new JLabel();
+        nameField = new JTextField();
+        passField = new JTextField();
+        login = new JButton();
+        regist = new JButton();
+        error = new JLabel();
+        errorPass = new JLabel();
+        errorName = new JLabel();
+        jRadioButton1 = new JRadioButton();
+        jRadioButton2 = new JRadioButton();
+        jRadioButton3 = new JRadioButton();
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        nameLabel.setText("用户名");
+
+        passLabel.setText(" 密码");
+
+        nameField.setText(" ");
+        nameField.setFont(new Font("宋体",Font.PLAIN,25));
+        nameField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                nameFieldActionPerformed(evt);
+            }
+        });
+
+        passField.setText(" ");
+        passField.setFont(new Font("宋体",Font.PLAIN,25));
+        passField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                passFieldActionPerformed(evt);
+            }
+        });
+
+        login.setText(" 登陆");
+        login.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+
+        regist.setText(" 注册");
+        regist.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                registActionPerformed(evt);
+            }
+        });
+
+        error.setText(" ");
+
+        errorPass.setText(" ");
+
+        errorName.setText(" ");
+
+        jRadioButton1.setText(" 学生");
+        jRadioButton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setText(" 老师");
+        jRadioButton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setText(" 管理员");
+        jRadioButton3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(284, 284, 284)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addComponent(nameLabel)
+                            .addComponent(passLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(login, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
+                                .addComponent(regist, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE))
+                            .addComponent(error, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nameField)
+                            .addComponent(passField)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addGap(114, 114, 114)
+                        .addComponent(jRadioButton2)
+                        .addGap(101, 101, 101)
+                        .addComponent(jRadioButton3)))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(errorName, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addComponent(errorPass, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(error, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameField, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameLabel)
+                    .addComponent(errorName, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(passField, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passLabel)
+                    .addComponent(errorPass, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3))
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(login, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(regist, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(153, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void jRadioButton1ActionPerformed(ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void jRadioButton3ActionPerformed(ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void jRadioButton2ActionPerformed(ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void loginActionPerformed(ActionEvent evt) {                                      
+        // TODO add your handling code here:
+    }                                     
+
+    private void registActionPerformed(ActionEvent evt) {                                       
+        // TODO add your handling code here:
+    }                                      
+
+    private void passFieldActionPerformed(ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void nameFieldActionPerformed(ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(LoginClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(LoginClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(LoginClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(LoginClass.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginClass().setVisible(true);
+            }
+        });
+    }
+
+              
+
+             
+}
